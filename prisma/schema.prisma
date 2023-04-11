@@ -16,7 +16,7 @@ model User {
   image String?
   email String? @unique
   emailVerified DateTime?
-  hashePassword String?
+  hashedPassword String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   favoriteIds String[] @db.ObjectId
@@ -52,4 +52,26 @@ expires DateTime
 
 user User @relation(fields: [UserId], references: [id], onDelete:Cascade)
 
+}
+
+model VerificationToken {
+
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  identifier String 
+  token String @unique
+  expires DateTime
+
+  @@unique([identifier, token])
+
+}
+
+model Movie {
+
+id String @id @default(auto()) @map("_id") @db.ObjectId
+title String
+desciption String
+videoUrl String
+thumbnailUrl String
+genre String
+duration String
 }
